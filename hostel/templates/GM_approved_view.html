@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Approved Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #007BFF;
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        ul li:hover {
+            background-color: #f9f9f9;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Approved Bookings - GM View</h1>
+
+<h2>Boys Hostel</h2>
+<ul>
+    {% for booking in boys_approved_bookings %}
+        <li>{{ booking.student_name }} - Room {{ booking.room_number }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Girls Hostel</h2>
+<ul>
+    {% for booking in girls_approved_bookings %}
+        <li>{{ booking.student_name }} - Room {{ booking.room_number }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'gm_view' %}">Back to Pending Bookings</a>
+
+</body>
+</html>

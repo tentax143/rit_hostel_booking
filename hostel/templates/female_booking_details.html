@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Female Hostel Booking Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ff69b4;
+        }
+        .details {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .details p {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .button {
+            display: block;
+            width: 100px;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #ff85c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Female Hostel Booking Details</h1>
+        <div class="details">
+            <p><strong>Room Number:</strong> {{ booking.room_number }}</p>
+            <p><strong>Student Name:</strong> {{ booking.student_name }}</p>
+            <p><strong>Department:</strong> {{ booking.department }}</p>
+            <p><strong>Batch:</strong> {{ booking.batch }}</p>
+            <p><strong>Number of Occupants:</strong> {{ booking.occupants }}</p>
+            <!-- Add more fields as necessary -->
+        </div>
+        <a href="{% url 'female_hostel_booking' %}" class="button">Back to Booking</a>
+    </div>
+</body>
+</html>

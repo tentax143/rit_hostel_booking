@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .background {
+            background-image: url("{% static 'images/background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Ensure positioning for the sidebar */
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white; /* White background */
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Optional shadow */
+        }
+
+        .sidebar .logo {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px; /* Space below the logo */
+        }
+
+        .sidebar .logo img {
+            max-width: 80%; /* Adjust size as needed */
+            height: auto;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #333; /* Dark text color */
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #007bff; /* Highlight color on hover */
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: #333; /* Close button color */
+        }
+
+        .sidebar button {
+            background-color: #007bff; /* Classic blue color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .sidebar button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .menu-btn {
+            font-size: 20px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            position: fixed; /* Fixed position */
+            top: 20px;
+            left: 20px;
+            transition: 0.5s;
+            z-index: 1001; /* Ensure button is above the sidebar */
+        }
+
+        .menu-btn.move-right {
+            left: 270px; /* Adjust this value as needed */
+        }
+
+        /* Center the student login button */
+        .sidebar .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; /* Ensure the button takes full width for centering */
+            text-align: center; /* Center align text */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="logo">
+            <img src="{% static 'images/1.png' %}" alt="Logo">
+        </div>
+        <div class="centered">
+            <form action="{% url 'student_login' %}" autocomplete="off">
+                <button type="submit">Student Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <button id="menuBtn" class="menu-btn" onclick="toggleNav()">Menu</button>
+
+    <div class="background">
+        <div class="login-container">
+            <h2 style="color: black;">faculty Login</h2>
+            <form method="POST" action="{% url 'staff_login' %}" autocomplete="off">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" required autocomplete="off">
+                <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleNav() {
+            var sidebar = document.getElementById('mySidebar');
+            var menuBtn = document.getElementById('menuBtn');
+            if (sidebar.style.width === '250px') {
+                sidebar.style.width = '0';
+                menuBtn.classList.remove('move-right');
+            } else {
+                sidebar.style.width = '250px';
+                menuBtn.classList.add('move-right');
+            }
+        }
+
+        function closeNav() {
+            var sidebar = document.getElementById('mySidebar');
+            var menuBtn = document.getElementById('menuBtn');
+            sidebar.style.width = '0';
+            menuBtn.classList.remove('move-right');
+        }
+    </script>
+</body>
+</html>

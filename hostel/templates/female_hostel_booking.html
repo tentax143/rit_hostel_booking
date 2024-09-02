@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking</title>
+    {% load static %}
+    <style>
+        body {
+            background-image: url("{% static 'images/background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 14px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 14px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Female Hostel Room Booking</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <!-- Auto-filled student details -->
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ student_name }}" readonly>
+            </div>
+            
+            <div>
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" value="{{ department }}" readonly>
+            </div>
+
+            <label for="room_number">Room Number:</label>
+            <select id="room_number" name="room_number" required>
+                <option value="" hidden selected>Select Room</option>
+                    {% for room in available_rooms %}
+                    <option value="{{ room }}">{{ room}}</option>
+                    {% endfor %}
+                </select>
+            <br>
+
+            <button type="submit">Book Room</button>
+        </form>
+    </div>
+</body>
+</html>

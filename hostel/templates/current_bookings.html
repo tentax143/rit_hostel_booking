@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Bookings</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            position: relative; /* Ensure relative positioning for child elements */
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .logout-btn {
+            position: absolute; /* Position the button in the top-right corner */
+            top: 20px;
+            right: 20px;
+            background-color: #dc3545; /* Red background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logout Button -->
+    <button class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+
+    <div class="container">
+        <h2>Current Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Room Number</th>
+                    <th>Occupants</th>
+                    <th>Occupant Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.student_name }}</td>
+                    <td>{{ booking.department }}</td>
+                    <td>{{ booking.room_number }}</td>
+                    <td>{{ booking.occupants }}</td>
+                    <td>
+                        <ul>
+                            {% for occupant in booking.get_occupants %}
+                            <li>Name: {{ occupant.name }}, Roll Number: {{ occupant.roll_number }}</li>
+                            {% empty %}
+                            <li>No occupants</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No bookings available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

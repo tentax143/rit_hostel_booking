@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Female Hostel Booking Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #fff 3px solid;
+        }
+        header h1 {
+            text-align: center;
+            margin: 0;
+        }
+        .btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block; /* Ensures buttons are inline */
+            margin: 10px; /* Adds some space between buttons */
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+        .message {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #viewBookingsBtn {
+            display: none; /* Hide the View Current Bookings button initially */
+        }
+    </style>
+    <script>
+        function showViewBookingsButton() {
+            document.getElementById('viewBookingsBtn').style.display = 'inline-block'; // Show the button
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Booking Success</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="message">
+            <h2>Congratulations!</h2>
+            <p>Your booking has been successfully completed.</p>
+            <!-- Generate PDF Button -->
+            <a href="{% url 'generate_pdf' %}?role=student" class="btn" target="_blank" onclick="showViewBookingsButton()">Generate PDF</a>
+            <!-- View Current Bookings Button (Initially hidden) -->
+            <a href="{% url 'female_current_bookings' %}" class="btn" id="viewBookingsBtn">View Current Bookings</a>
+        </div>
+    </div>
+</body>
+</html>

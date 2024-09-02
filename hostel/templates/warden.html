@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principal/Vice Principal - Current Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        ul li:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Current Bookings - Principal/Vice Principal View</h1>
+
+<form method="GET">
+    <label for="room">Filter by Room:</label>
+    <input type="text" name="room" id="room">
+    
+    <label for="department">Filter by Department:</label>
+    <input type="text" name="department" id="department">
+    
+    <label for="year">Filter by Year:</label>
+    <input type="text" name="year" id="year">
+    
+    <button type="submit">Filter</button>
+</form>
+
+<h2>Boys Hostel</h2>
+<ul>
+    {% for booking in boys_hostel_bookings %}
+        <li>{{ booking.student_name }} - Room {{ booking.room_number }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Girls Hostel</h2>
+<ul>
+    {% for booking in girls_hostel_bookings %}
+        <li>{{ booking.student_name }} - Room {{ booking.room_number }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

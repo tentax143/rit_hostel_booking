@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Approval</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Pending Bookings for Warden Approval</h2>
+        <form method="post" action="{% url 'warden_approval' %}">
+            {% csrf_token %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Student Name</th>
+                        <th>Department</th>
+                        <th>Room Number</th>
+                        <th>Occupants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in pending_bookings %}
+                        <tr>
+                            <td><input type="checkbox" name="bookings" value="{{ booking.id }}"></td>
+                            <td>{{ booking.student_name }}</td>
+                            <td>{{ booking.department }}</td>
+                            <td>{{ booking.room_number }}</td>
+                            <td>{{ booking.occupants }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Approve Selected Bookings</button>
+        </form>
+    </div>
+</body>
+</html>

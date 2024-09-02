@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #dc3545;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .detail-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FOR INFORMATION
+        </h1>
+        <p>{{ message }} Please contact Deputy warden</p>
+        {% if personal_data %}
+            <p><span class="detail-label">Name:</span> {{ personal_data.Name }}</p>
+            <p><span class="detail-label">Gender:</span> {{ personal_data.Gender }}</p>
+            <p><span class="detail-label">Mode:</span> {{ personal_data.Mode }}</p>
+            <p><span class="detail-label">Aadhaar Number:</span> {{ personal_data.Aadhaar_Number }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+ 

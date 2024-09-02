@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #fff 3px solid;
+            position: relative; /* Positioning to allow for absolute positioning of button */
+        }
+        header h1 {
+            text-align: center;
+            margin: 0;
+        }
+        .logout-btn {
+            position: absolute; /* Positioning the logout button in the header */
+            top: 20px;
+            right: 20px;
+            background-color: #dc3545; /* Red background color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color: #333;
+            color: #fff;
+        }
+        .btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Current Bookings</h1>
+            <!-- Logout Button -->
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <div class="container">
+        <a href="{% url 'male_current_bookings' %}" class="btn">Back to Booking</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Date Booked</th>
+                    <th>Status</th> <!-- New Column for Status -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.room_number }}</td>
+                    <td>{{ booking.student_name }}</td>
+                    <td>{{ booking.department }}</td>
+                    <td>{{ booking.date_booked }}</td>
+                    <td>{{ booking.status }}</td> <!-- Display Status -->
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No current bookings.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

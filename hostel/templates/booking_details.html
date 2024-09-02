@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Booking Details</h1>
+        {% if bookings %}
+            {% for booking in bookings %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Student Name: {{ booking.student_name }}</h5>
+                        <p class="card-text"><strong>Room Number:</strong> {{ booking.room_number }}</p>
+                        <p class="card-text"><strong>Department:</strong> {{ booking.department }}</p>
+                        <p class="card-text"><strong>Occupants:</strong></p>
+                        <ul class="list-group">
+                            {% for occupant in booking.occupant_details %}
+                                <li class="list-group-item">
+                                    <strong>Roll Number:</strong> {{ occupant.roll_number }}, 
+                                    <strong>Name:</strong> {{ occupant.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                No bookings found.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls Warden Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure positioning for child elements */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .logout-btn {
+            position: absolute; /* Position relative to the container */
+            top: 20px;
+            right: 20px; /* Position in the top-right corner */
+            background-color: #dc3545; /* Red background */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-approve {
+            background-color: #28a745;
+        }
+
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+
+        .form-group {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .form-group input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .btn-generate {
+            background-color: #ffc107;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .btn-generate:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logout Button -->
+        <button class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+
+        <h2>Girls Warden Dashboard</h2>
+
+        <!-- Approve Pending Bookings Section -->
+        <h3>Pending Room Bookings</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Room Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through pending bookings -->
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.student_name }}</td>
+                        <td>{{ booking.room_number }}</td>
+                        <td>
+                            <a href="{% url 'girls_approve_booking' booking.id %}" class="btn btn-approve">Approve</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No pending bookings.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Generate PDF Section -->
+        <div class="form-group">
+            <h3>Generate Student Details PDF</h3>
+            <form action="{% url 'generate_pdf' %}?role=staff" method="post" target="_blank">
+                {% csrf_token %}
+                <input type="text" name="aadhar_number" placeholder="Enter Aadhaar Number" required>
+                <button type="submit" class="btn btn-generate">Generate PDF</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

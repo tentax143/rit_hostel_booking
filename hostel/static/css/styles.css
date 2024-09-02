@@ -1,0 +1,66 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    background-image: url("{% static 'images/background.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rit{
+    background-color: white;
+    background-image: url("{% static 'images/rit.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 35vh;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* White background with transparency */
+    border-radius: 15px; /* Smooth curves */
+    padding: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    max-width: 400px;
+    width: 100%;
+}
+
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boys Warden Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Added to help position the logout button */
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background-color: #dc3545; /* Red color for the logout button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-approve {
+            background-color: #28a745;
+        }
+
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+
+        .btn-allocate {
+            background-color: #007bff;
+        }
+
+        .btn-allocate:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-select-all, .btn-deselect-all {
+            background-color: #ffc107;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-select-all:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-deselect-all:hover {
+            background-color: #d39e00;
+        }
+
+        .form-group {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .form-group input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .btn-generate {
+            background-color: #ffc107;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .btn-generate:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logout Button -->
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+
+        <h2>Boys Warden Dashboard</h2>
+
+        <!-- Approve Pending Bookings Section -->
+        <h3>Pending Room Bookings</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Room Requested</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through pending bookings -->
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.student_name }}</td> <!-- Display student name -->
+                        <td>{{ booking.room_number }}</td> <!-- Display room number -->
+                        <td>
+                            <a href="{% url 'approve_booking' booking.id %}" class="btn btn-approve">Approve</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No pending bookings.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Allocate Room Section -->
+        <h3>Allocate Room to Students</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Available Rooms</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through students and available rooms -->
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.username }}</td>
+                        <td>
+                            <button class="btn btn-select-all" onclick="selectAllRooms(this)">Select All</button>
+                            <button class="btn btn-deselect-all" onclick="deselectAllRooms(this)">Deselect All</button>
+                            <select name="room" multiple>
+                                {% for room in rooms %}
+                                <option value="{{ room.id }}">{{ room.number }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-allocate">Allocate</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No students available for allocation.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Generate PDF Section -->
+        <div class="form-group">
+            <h3>Generate Student Details PDF</h3>
+            <form action="{% url 'generate_pdf' %}?role=staff" method="post" target="_blank">
+                {% csrf_token %}
+                <input type="text" name="aadhar_number" placeholder="Enter Aadhaar Number" required>
+                <button type="submit" class="btn btn-generate">Generate PDF</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for Select All and Deselect All -->
+    <script>
+        function selectAllRooms(button) {
+            // Find the select element in the same row
+            var select = button.nextElementSibling;
+            
+            // Loop through options and select them
+            for (var i = 0; i < select.options.length; i++) {
+                select.options[i].selected = true;
+            }
+        }
+
+        function deselectAllRooms(button) {
+            // Find the select element in the same row
+            var select = button.nextElementSibling.nextElementSibling;
+            
+            // Loop through options and deselect them
+            for (var i = 0; i < select.options.length; i++) {
+                select.options[i].selected = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Bookings and Available Rooms</title>
+    <!-- Include Bootstrap CSS from a CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h1 class="text-center mb-4">Current Bookings</h1>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Student Name</th>
+                <th>Department</th>
+                <th>Room Number</th>
+                <th>Occupants</th>
+                <th>Date Booked</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.student_name }}</td>
+                <td>{{ booking.department }}</td>
+                <td>{{ booking.room.room_number }}</td>
+                <td>
+                    {% for occupant in booking.occupants.all %}
+                        {{ occupant.name }} ({{ occupant.roll_number }})<br>
+                    {% endfor %}
+                </td>
+                <td>{{ booking.date_booked }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1 class="text-center mb-4 mt-5">Available Rooms</h1>
+    
+    <ul class="list-group mb-4">
+        {% for room in available_rooms %}
+        <li class="list-group-item">Room Number: {{ room.room_number }}</li>
+        {% empty %}
+        <li class="list-group-item">No available rooms.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="text-center">
+        <a href="{% url 'room_booking' %}" class="btn btn-primary">Book your Room</a>
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
