@@ -111,5 +111,10 @@
             </tbody>
         </table>
     </div>
+    {% if button_view %}
+        <a href="{% url 'generate_pdf' %}?role=student" id="generatePdfBtn" class="btn" data-button-view="{{ button_view|default:'false' }}" target="_blank">Generate PDF</a>
+        {% endif %}
+    {% if not button_view %}
+        <a id="generatePdfBtn" class="btn">In progress</a>
 </body>
 </html>

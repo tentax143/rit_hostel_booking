@@ -50,11 +50,11 @@
             display: none; /* Hide the View Current Bookings button initially */
         }
     </style>
-    <script>
+    {% comment %} <script>
         function showViewBookingsButton() {
             document.getElementById('viewBookingsBtn').style.display = 'inline-block'; // Show the button
         }
-    </script>
+    </script> {% endcomment %}
 </head>
 <body>
     <header>
@@ -67,7 +67,7 @@
             <h2>Congratulations!</h2>
             <p>Your booking has been successfully completed.</p>
             <!-- Generate PDF Button -->
-            <a href="{% url 'generate_pdf' %}?role=student" class="btn" target="_blank" onclick="showViewBookingsButton()">Generate PDF</a>
+            {% comment %} <a href="{% url 'generate_pdf' %}?role=student" class="btn" target="_blank" onclick="showViewBookingsButton()">Generate PDF</a> {% endcomment %}
             <!-- View Current Bookings Button (Initially hidden) -->
             <a href="{% url 'male_current_bookings' %}" class="btn" id="viewBookingsBtn">View Current Bookings</a>
         </div>

@@ -23,17 +23,17 @@
             padding-top: 30px;
             min-height: 70px;
             border-bottom: #fff 3px solid;
-            position: relative; /* Positioning to allow for absolute positioning of button */
+            position: relative;
         }
         header h1 {
             text-align: center;
             margin: 0;
         }
         .logout-btn {
-            position: absolute; /* Positioning the logout button in the header */
+            position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #dc3545; /* Red background color */
+            background-color: #dc3545;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -42,7 +42,7 @@
             text-decoration: none;
         }
         .logout-btn:hover {
-            background-color: #c82333; /* Darker red on hover */
+            background-color: #c82333;
         }
         table {
             width: 100%;
@@ -72,12 +72,36 @@
         .btn:hover {
             background-color: #555;
         }
+        .btn:disabled {
+            background-color: #999; /* Disabled button color */
+            cursor: not-allowed;   /* Change cursor to not-allowed */
+        }
     </style>
+    <script>
+        // JavaScript to handle disabling the Generate PDF button
+        function handleGeneratePdfButton() {
+            // Get the value from the data attribute
+            var buttonView = document.getElementById('generatePdfBtn').dataset.buttonView;
+            
+            // Convert to boolean and disable or enable the button accordingly
+            if (buttonView.trim().toLowerCase() === 'false') {
+                // Disable the button if button_view is false
+                document.getElementById('generatePdfBtn').setAttribute('disabled', 'disabled');
+            } else {
+                // Enable the button if button_view is true
+                document.getElementById('generatePdfBtn').removeAttribute('disabled');
+            }
+        }
+        
+        // Run the function after the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", handleGeneratePdfButton);
+    </script>
 </head>
 <body>
     <header>
         <div class="container">
             <h1>Current Bookings</h1>
+            <h1>{{name}}</h1>
             <!-- Logout Button -->
             <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
         </div>
@@ -110,6 +134,14 @@
                 {% endfor %}
             </tbody>
         </table>
+       
+        <!-- Generate PDF Button with data attribute for button_view -->
+        {% if button_view %}
+        <a href="{% url 'generate_pdf' %}?role=student" id="generatePdfBtn" class="btn" data-button-view="{{ button_view|default:'false' }}" target="_blank">Generate PDF</a>
+        {% endif %}
+    {% if not button_view %}
+        <a id="generatePdfBtn" class="btn">In progress</a>
+{% endif %}
     </div>
 </body>
 </html>

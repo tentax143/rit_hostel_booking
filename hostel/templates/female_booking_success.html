@@ -67,7 +67,7 @@
             <h2>Congratulations!</h2>
             <p>Your booking has been successfully completed.</p>
             <!-- Generate PDF Button -->
-            <a href="{% url 'generate_pdf' %}?role=student" class="btn" target="_blank" onclick="showViewBookingsButton()">Generate PDF</a>
+            {% comment %} <a href="{% url 'generate_pdf' %}?role=student" class="btn" target="_blank" onclick="showViewBookingsButton()">Generate PDF</a> {% endcomment %}
             <!-- View Current Bookings Button (Initially hidden) -->
             <a href="{% url 'female_current_bookings' %}" class="btn" id="viewBookingsBtn">View Current Bookings</a>
         </div>
